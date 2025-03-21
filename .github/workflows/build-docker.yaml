@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v4
       
       - name: Login en Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.ACTIONS_SECRET }}" | docker login -u "${{ secrets.USER_DOCKERE }}" --password-stdin
       
       - name: Construir imagen
         run: docker build -t agusskate/ejemplo1-actions:latest .
