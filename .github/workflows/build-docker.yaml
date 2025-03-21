@@ -1,15 +1,19 @@
-name: crear y subit imagen docker
+name: crear y subir imagen docker
 on:
   [workflow_dispatch]
-
 
 jobs:
   publish_image:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout
+      - name: Checkout del repositorio
         uses: actions/checkout@v4
-      - name: construir imagen
-        run: docker build . -t agusskate/ejemplo1-actions:latest
-      - name: subir la imagen a docker hub
+      
+      - name: Login en Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+      
+      - name: Construir imagen
+        run: docker build -t agusskate/ejemplo1-actions:latest .
+      
+      - name: Subir la imagen a Docker Hub
         run: docker push agusskate/ejemplo1-actions:latest
