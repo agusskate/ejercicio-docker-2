@@ -1,6 +1,9 @@
 name: crear y subir imagen docker
 on:
-  [workflow_dispatch]
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   publish_image:
@@ -13,7 +16,7 @@ jobs:
         run: echo "${{ secrets.ACTIONS_SECRET }}" | docker login -u "${{ secrets.USER_DOCKERE }}" --password-stdin
       
       - name: Construir imagen
-        run: docker build -t agusskate/ejemplo1-actions:latest .
+        run: docker build -t agusskate/ejemplo1-actions-automatico:latest .
       
       - name: Subir la imagen a Docker Hub
-        run: docker push agusskate/ejemplo1-actions:latest
+        run: docker push agusskate/ejemplo1-actions-automatico:latest
